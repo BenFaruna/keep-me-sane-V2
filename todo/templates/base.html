@@ -1,10 +1,33 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sanity</title>
 </head>
 <body>
-    <p>Welcome to my todo app</p>
+<p>Welcome to my todo app</p>
+
+<form action="{% url 'sanity:add_todo' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="todo">
+    <button>submit</button>
+</form>
+
+<div class="row">
+    {% for items in todo_items %}
+    <div class="col">
+        <p>{{ items.id }}</p>
+        <p>{{ items.todo }}/{{ items.date_added }}</p>
+    </div>
+
+    <form action="{% url 'sanity:delete_todo' items.id%}" method="post">
+        {% csrf_token %}
+        <button class="btn-danger">Delete</button>
+    </form>
+    {% endfor %}
+</div>
 </body>
 </html>
