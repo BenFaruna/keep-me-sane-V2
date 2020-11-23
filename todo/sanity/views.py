@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.utils import timezone
 
 
 from .models import Todo
@@ -12,11 +11,11 @@ def home(request):
     context = {
         'todo_items': todo_items
     }
-    return render(request, 'base.html', context)
+    return render(request, 'sanity/index.html', context)
 
 
 def add_todo(request):
-    content = request.POST['todo']
+    content = request.POST.get('todo')
     Todo.objects.create(todo=content)
     return redirect(reverse('sanity:index'))
 
