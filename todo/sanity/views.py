@@ -15,8 +15,11 @@ def home(request):
 
 
 def add_todo(request):
-    content = request.POST.get('todo')
-    Todo.objects.create(todo=content)
+    if request.POST.get('todo'):
+        content = request.POST.get('todo')
+        Todo.objects.create(todo=content)
+    else:
+        pass
     return redirect(reverse('sanity:index'))
 
 
